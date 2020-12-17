@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <IncludePath>C:\third_party\glm;C:\third_party\nanogui\include;C:\third_party\nanogui\ext\eigen;C:\third_party\nanogui\ext\glad\include;C:\third_party\nanogui\ext\glfw\include;C:\third_party\nanogui\ext\nanovg\src;C:\third_party\reactphysics3d\include;C:\third_party\SQLiteCpp\include;C:\third_party\OpenGLWrapper\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\third_party\nanogui\build\$(Configuration);C:\third_party\reactphysics3d\build\$(Configuration);C:\third_party\SQLiteCpp\build\$(Configuration);C:\third_party\SQLiteCpp\build\sqlite3\$(Configuration);C:\third_party\OpenGLWrapper\$(Configuration);$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <Link>
+      <AdditionalDependencies>nanogui.lib;reactphysics3d.lib;SQLiteCpp.lib;sqlite3.lib;OpenGLWrapper.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy /Y C:\third_party\nanogui\build\$(Configuration)\nanogui.dll $(TargetDir)nanogui.dll</Command>
+      <Message>copy nanogui.dll </Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup />
+</Project>
