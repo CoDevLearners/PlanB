@@ -147,7 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\..\third_party\nanogui\ext\glad\src\glad.c" />
+    <ClCompile Include="..\third_party\nanogui\ext\glad\src\glad.c" />
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="Buffalo.cpp" />
     <ClCompile Include="BuffaloChessGame.cpp" />

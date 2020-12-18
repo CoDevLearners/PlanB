@@ -3,15 +3,15 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <IncludePath>C:\third_party\glm;C:\third_party\nanogui\include;C:\third_party\nanogui\ext\eigen;C:\third_party\nanogui\ext\glad\include;C:\third_party\nanogui\ext\glfw\include;C:\third_party\nanogui\ext\nanovg\src;C:\third_party\reactphysics3d\include;C:\third_party\SQLiteCpp\include;C:\third_party\OpenGLWrapper\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\third_party\nanogui\build\$(Configuration);C:\third_party\reactphysics3d\build\$(Configuration);C:\third_party\SQLiteCpp\build\$(Configuration);C:\third_party\SQLiteCpp\build\sqlite3\$(Configuration);C:\third_party\OpenGLWrapper\$(Configuration);$(LibraryPath)</LibraryPath>
+    <IncludePath>..\third_party\glm;..\third_party\nanogui\include;..\third_party\nanogui\ext\eigen;..\third_party\nanogui\ext\glad\include;..\third_party\nanogui\ext\glfw\include;..\third_party\nanogui\ext\nanovg\src;..\third_party\reactphysics3d\include;..\third_party\SQLiteCpp\include;..\third_party\OpenGLWrapper\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\third_party\nanogui\build\$(Configuration);..\third_party\reactphysics3d\build\$(Configuration);..\third_party\SQLiteCpp\build\$(Configuration);..\third_party\SQLiteCpp\build\sqlite3\$(Configuration);..\third_party\OpenGLWrapper\$(Configuration);$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <Link>
       <AdditionalDependencies>nanogui.lib;reactphysics3d.lib;SQLiteCpp.lib;sqlite3.lib;OpenGLWrapper.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y C:\third_party\nanogui\build\$(Configuration)\nanogui.dll $(TargetDir)nanogui.dll</Command>
+      <Command>copy /Y ..\third_party\nanogui\build\$(Configuration)\nanogui.dll $(TargetDir)nanogui.dll</Command>
       <Message>copy nanogui.dll </Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
