@@ -60,6 +60,18 @@ union PieceID
 		int8_t __dummy2[2];
 		int8_t number;
 	};
+
+	PieceID(Owner owner, PieceType pieceType, int8_t number)
+	{
+		this->owner = owner;
+		this->type = pieceType;
+		this->number = number;
+	}
+
+	explicit PieceID(int32_t key)
+	{
+		this->key = key;
+	}
 };
 
 inline bool operator<(const PieceID& lhs, const PieceID& rhs)
