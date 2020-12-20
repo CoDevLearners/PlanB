@@ -338,3 +338,6 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+
+# Third party 의 내용은 무시하지 않도록 한다.
+!/third_party/**

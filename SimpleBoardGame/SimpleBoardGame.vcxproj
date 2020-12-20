@@ -61,7 +61,7 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\third_party\glm.props" />
     <Import Project="..\third_party\nanogui.props" />
-    <Import Project="..\third_party\openglwrapper.props" />
+    <Import Project="..\third_party\glwrapper.props" />
     <Import Project="..\third_party\reactphysics3d.props" />
     <Import Project="..\third_party\sqlitecpp.props" />
   </ImportGroup>
@@ -69,7 +69,7 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\third_party\glm.props" />
     <Import Project="..\third_party\nanogui.props" />
-    <Import Project="..\third_party\openglwrapper.props" />
+    <Import Project="..\third_party\glwrapper.props" />
     <Import Project="..\third_party\reactphysics3d.props" />
     <Import Project="..\third_party\sqlitecpp.props" />
   </ImportGroup>

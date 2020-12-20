@@ -3,7 +3,7 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <IncludePath>..\third_party\include\glm;$(IncludePath)</IncludePath>
+    <IncludePath>..\third_party\glm\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemGroup />
 </Project>

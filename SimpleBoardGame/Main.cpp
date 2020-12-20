@@ -2,6 +2,7 @@
 #include <GLFW/glfw3.h>
 #include <nanogui/nanogui.h>
 #include <iostream>
+#include <OpenGLWrapper.h>
 
 int main(int, char**)
 {
@@ -64,9 +65,13 @@ int main(int, char**)
 	glfwSetFramebufferSizeCallback(window, [](GLFWwindow*, int width, int height) {
 	});
 
+	glwrapper::Camera camera;
+
 	while (!glfwWindowShouldClose(window))
 	{
 		glfwPollEvents();
+
+		camera.translate(0.001f, 0, 0);
 
 		glfwSwapBuffers(window);
 	}
