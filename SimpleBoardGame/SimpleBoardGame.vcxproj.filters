@@ -36,7 +36,7 @@
     <ClCompile Include="Cheif.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\third_party\nanogui\ext\glad\src\glad.c">
+    <ClCompile Include="glad.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

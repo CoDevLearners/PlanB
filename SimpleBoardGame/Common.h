@@ -68,7 +68,7 @@ union PieceID
 		this->number = number;
 	}
 
-	explicit PieceID(int32_t key)
+	explicit PieceID(int32_t key = 0)
 	{
 		this->key = key;
 	}
