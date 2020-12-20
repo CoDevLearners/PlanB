@@ -8,7 +8,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <Link>
-      <AdditionalDependencies>nanogui.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>nanogui.lib;glfw_objects.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup />
