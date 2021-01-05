@@ -5,7 +5,9 @@
 
 BuffaloChessGame::BuffaloChessGame() :
 	m_numSeq(0),
-	m_state(GameState::Invalid)
+	m_state(GameState::Invalid),
+	m_numAlivePieces(0),
+	m_numDeadPieces(0)
 {}
 
 BuffaloChessGame::~BuffaloChessGame()
@@ -18,7 +20,7 @@ bool BuffaloChessGame::Initalize()
 		return false;
 	}
 
-	uint32_t grassRow   = MAX_BOARD_ROW - 1;
+	uint32_t grassRow = MAX_BOARD_ROW - 1;
 	// Buffalo 기물 초기화
 	for ( uint32_t col = 0; col < NUM_BUFFALO; ++col )
 	{
@@ -35,11 +37,11 @@ bool BuffaloChessGame::Initalize()
 	}
 
 	uint32_t centerCol = MAX_BOARD_COL / 2;
-    uint32_t cheifRow  = 1;
+	uint32_t cheifRow = 1;
 
 	// Cheif 기물 초기화
-    m_boards[cheifRow][centerCol] = PieceId(Owner::River, PieceType::Cheif, 0);
-    
+	m_boards[cheifRow][centerCol] = PieceId(Owner::River, PieceType::Cheif, 0);
+
 	// Dog 기물 초기화
 	for ( uint32_t col = 0; col < NUM_DOG; ++col )
 	{
@@ -56,39 +58,51 @@ bool BuffaloChessGame::Initalize()
 	m_numSeq = 0;
 	m_state = GameState::InGame;
 
-    return true;
+	return true;
+
+	return false;
 }
 
 void BuffaloChessGame::Release()
+{}
+
+bool BuffaloChessGame::Update(const Action &action)
 {
-	m_state = GameState::Invalid;
+	return false;
 }
 
-bool BuffaloChessGame::Update(IAction *pAction, UpdateHandler hUpdate)
+Piece BuffaloChessGame::GetPiece(const Cell &cell)
 {
-	throw std::logic_error("Update NotImpletment\n");
-    return false;
+	return Piece();
 }
 
-std::vector<Cell> BuffaloChessGame::GetHint(const Cell &cell)
+Piece BuffaloChessGame::GetPiece(const PieceId &pieceId)
 {
-	std::vector<Cell> rtv;
+	return Piece();
+}
 
-	if ( cell.row >= MAX_BOARD_ROW || cell.col >= MAX_BOARD_COL )
-	{
-		return rtv;
-	}
-
-	throw std::logic_error("GetHint NotImpletment\n");
-
-
-	m_boards[cell.row][cell.col];
-
-
-    return std::vector<Cell>();
+std::vector<Action> BuffaloChessGame::GetActions(const Cell &cell)
+{
+	return std::vector<Action>();
 }
 
 Owner BuffaloChessGame::GetTurnOwner()
 {
-	return Owner(m_numSeq % 2);
+	return Owner();
 }
+
+std::vector<Piece> BuffaloChessGame::GetAllPieces()
+{
+	return std::vector<Piece>();
+}
+
+std::vector<Piece> BuffaloChessGame::GetAlivePieces()
+{
+	return std::vector<Piece>();
+}
+
+std::vector<Piece> BuffaloChessGame::GetDeadPieces()
+{
+	return std::vector<Piece>();
+}
+

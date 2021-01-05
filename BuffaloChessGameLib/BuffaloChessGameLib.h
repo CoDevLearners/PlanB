@@ -1,4 +1,6 @@
 ﻿#pragma once
 
-#include "GameInfo.h"
+#include "Common.h"
 #include "IGameHandle.h"
+
+IGameHandle *GetBuffaloChessGameHandle();

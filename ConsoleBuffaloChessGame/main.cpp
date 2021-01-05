@@ -92,11 +92,11 @@ int main(void)
 	getchar();
 
 	SetConsoleTextAttribute(hOut, 12);
-	IGameHandle *hGame = IGameHandle::CreateGame();
-	std::cout << hGame->GetTurnOwner() << std::endl;
-
-	Cell cell = { 0, 0 };
-	hGame->GetHint(cell);
+	// IGameHandle *hGame = IGameHandle::CreateGame();
+	// std::cout << hGame->GetTurnOwner() << std::endl;
+	// 
+	// Cell cell = { 0, 0 };
+	// hGame->GetHint(cell);
 
 
 	return 0;

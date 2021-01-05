@@ -99,7 +99,9 @@
     <PostBuildEvent />
     <PostBuildEvent>
       <Command>mkdir "$(OutDir)include"
-xcopy /Y  "$(ProjectDir)*.h" "$(OutDir)include/*"</Command>
+xcopy /Y  "$(ProjectDir)BuffaloChessGameLib.h" "$(OutDir)include"
+xcopy /Y  "$(ProjectDir)Common.h" "$(OutDir)include"
+xcopy /Y  "$(ProjectDir)IGameHandle.h" "$(OutDir)include"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -123,7 +125,9 @@ xcopy /Y  "$(ProjectDir)*.h" "$(OutDir)include/*"</Command>
     <PostBuildEvent />
     <PostBuildEvent>
       <Command>mkdir "$(OutDir)include"
-xcopy /Y  "$(ProjectDir)*.h" "$(OutDir)include/*"</Command>
+xcopy /Y  "$(ProjectDir)BuffaloChessGameLib.h" "$(OutDir)include"
+xcopy /Y  "$(ProjectDir)Common.h" "$(OutDir)include"
+xcopy /Y  "$(ProjectDir)IGameHandle.h" "$(OutDir)include"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -143,7 +147,9 @@ xcopy /Y  "$(ProjectDir)*.h" "$(OutDir)include/*"</Command>
     <PostBuildEvent />
     <PostBuildEvent>
       <Command>mkdir "$(OutDir)include"
-xcopy /Y  "$(ProjectDir)*.h" "$(OutDir)include/*"</Command>
+xcopy /Y  "$(ProjectDir)BuffaloChessGameLib.h" "$(OutDir)include"
+xcopy /Y  "$(ProjectDir)Common.h" "$(OutDir)include"
+xcopy /Y  "$(ProjectDir)IGameHandle.h" "$(OutDir)include"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -167,11 +173,12 @@ xcopy /Y  "$(ProjectDir)*.h" "$(OutDir)include/*"</Command>
     <PostBuildEvent />
     <PostBuildEvent>
       <Command>mkdir "$(OutDir)include"
-xcopy /Y  "$(ProjectDir)*.h" "$(OutDir)include/*"</Command>
+xcopy /Y  "$(ProjectDir)BuffaloChessGameLib.h" "$(OutDir)include"
+xcopy /Y  "$(ProjectDir)Common.h" "$(OutDir)include"
+xcopy /Y  "$(ProjectDir)IGameHandle.h" "$(OutDir)include"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="GameContext.h" />
     <ClInclude Include="BuffaloChessGame.h" />
     <ClInclude Include="BuffaloChessGameLib.h" />
     <ClInclude Include="Common.h" />
@@ -179,7 +186,6 @@ xcopy /Y  "$(ProjectDir)*.h" "$(OutDir)include/*"</Command>
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GameContext.cpp" />
     <ClCompile Include="BuffaloChessGame.cpp" />
     <ClCompile Include="BuffaloChessGameLib.cpp" />
     <ClCompile Include="Common.cpp" />

@@ -7,6 +7,7 @@
 #define MAX_BOARD_COL 11
 #define NUM_BUFFALO   (11)
 #define NUM_DOG		  (4)
+#define NUM_CHIEF	  (1)
 
 #define __VAR_TO_STR(v)	#v
 
@@ -25,27 +26,21 @@
 * 02. 넘버링은 좌측 기준으로 1번부터 부여한다.
 * 03. 한 칸을 Cell(셀) 이라고 부른다.
 * 04. 버팔로(Buffalo)를 쓰는 사람을 Grass팀이라고 합니다.
-* 05. 사냥꾼(Cheif)을 쓰는 사람을 River팀이라고 합니다.
+* 05. 사냥꾼(Chief)을 쓰는 사람을 River팀이라고 합니다.
 */
 
 
 enum class Owner : uint8_t {
-	Invalid = (uint8_t)( -1 ),
+	Invalid = static_cast<uint8_t>( -1 ),
 	Grass = 0,
 	River,
 };
 
 enum class PieceType : uint8_t {
-	Invalid = (uint8_t)( -1 ),
+	Invalid = static_cast<uint8_t>( -1 ),
 	Buffalo = 0,
 	Cheif,
 	Dog,
-};
-
-enum class GameState : uint8_t {
-	Invalid = (uint8_t)( -1 ),
-	InGame = 0,
-	GameOver,
 };
 
 union PieceId {
@@ -72,9 +67,7 @@ public:
 	PieceId(Owner owner, PieceType pieceType, uint8_t number);
 };
 
-const PieceId IvalidPieceId = PieceId(Owner::Invalid, PieceType::Invalid, -1);
-
-using Board = PieceId[MAX_BOARD_ROW][MAX_BOARD_COL];	// 11행, 7열
+const PieceId IvalidPieceId = PieceId();
 
 struct Cell {
 	uint32_t row;

@@ -11,5 +11,7 @@
 #include <stdio.h>
 #include <vector>
 #include <cstdint>
+#include <list>
+#include <vector>
 
 #endif //PCH_H

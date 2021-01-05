@@ -11,7 +11,8 @@ PieceId::PieceId() :
 	key(-1)
 {}
 
-PieceId::PieceId(Owner owner, PieceType pieceType, uint8_t number)
+PieceId::PieceId(Owner owner, PieceType pieceType, uint8_t number) :
+	PieceId()
 {
 	this->owner  = owner;
 	this->type   = pieceType;
