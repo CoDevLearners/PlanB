@@ -25,3 +25,9 @@ Piece::Piece()
 	cell  = { static_cast<uint32_t>(-1), static_cast<uint32_t>( -1 ) };
 	alive = false;
 }
+
+Piece::Piece(PieceId id, Cell cell, bool alive) :
+	id(id),
+	cell(cell),
+	alive(alive)
+{}

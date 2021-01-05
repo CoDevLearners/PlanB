@@ -81,6 +81,7 @@ struct Piece
 	bool    alive;
 
 	Piece();
+	Piece(PieceId id, Cell cell, bool alive);
 };
 
 struct Action
