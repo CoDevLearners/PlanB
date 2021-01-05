@@ -67,7 +67,7 @@ public:
 
 	operator uint32_t () const;
 
-	explicit PieceId();
+	PieceId();
 
 	PieceId(Owner owner, PieceType pieceType, uint8_t number);
 };
@@ -81,3 +81,24 @@ struct Cell {
 	uint32_t col;
 };
 
+struct Piece
+{
+	PieceId id; // 고정
+	Cell    cell;
+	bool    alive;
+};
+
+struct Action
+{
+	// 누군가의 행동
+	Piece piece; // 여기의 얘가
+	Cell destination; // 여기로
+
+	// 누군가의 죽음
+	bool hasKilled;
+	Piece deadPiece;
+	
+	// 누군가의 승리
+	bool hasWon;
+	Owner owner;
+};

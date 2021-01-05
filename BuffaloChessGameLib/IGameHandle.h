@@ -21,7 +21,12 @@ public:
 	virtual bool Initalize() = 0;
 	virtual void Release() = 0;
 
-	virtual bool Update(IAction *pAction, UpdateHandler hUpdate = nullptr) = 0;
-	virtual std::vector<Cell> GetHint(const Cell &cell) = 0;
+	virtual bool Update(Action *pAction) = 0;
+	virtual Piece GetPiece(const Cell& cell) = 0;
+	virtual Piece GetPiece(const PieceId& pieceId) = 0;
+	virtual std::vector<Action> GetActions(const Cell &cell) = 0;
 	virtual Owner GetTurnOwner() = 0;
+	virtual std::vector<Piece> GetPieces() = 0;
+	virtual std::vector<Piece> GetAlivePieces() = 0;
+	virtual std::vector<Piece> GetDeadPieces() = 0;
 };

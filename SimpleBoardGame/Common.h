@@ -89,15 +89,3 @@ struct Cell
 	uint32_t col;
 };
 
-struct Actions
-{
-	// 누군가의 행동
-	PieceID m_pieceID;
-	std::vector<Cell> m_path;
-	// 누군가의 죽음
-	bool m_hasKilled;
-	PieceID m_deadPieceID;
-	// 누군가의 승리
-	bool m_hasWon;
-	Owner m_owner;
-};
