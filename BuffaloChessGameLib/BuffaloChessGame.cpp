@@ -8,7 +8,10 @@ BuffaloChessGame::BuffaloChessGame() :
 	m_state(GameState::Invalid),
 	m_numAlivePieces(0),
 	m_numDeadPieces(0)
-{}
+{
+	memset(m_alivePieces, 0, sizeof(Piece *) * NUM_TOTAL_PIECE);
+	memset(m_deadPieces, 0, sizeof(Piece *) * NUM_TOTAL_PIECE);
+}
 
 BuffaloChessGame::~BuffaloChessGame()
 {}
@@ -32,7 +35,7 @@ bool BuffaloChessGame::Initalize()
 	{
 		for ( uint32_t col = 0; col < MAX_BOARD_COL; ++col )
 		{
-			m_boards[row][col] = IvalidPieceId;
+			m_boards[row][col] = InvalidPieceId;
 		}
 	}
 

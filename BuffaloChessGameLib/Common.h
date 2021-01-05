@@ -67,7 +67,7 @@ public:
 	PieceId(Owner owner, PieceType pieceType, uint8_t number);
 };
 
-const PieceId IvalidPieceId = PieceId();
+const PieceId InvalidPieceId = PieceId();
 
 struct Cell {
 	uint32_t row;
@@ -79,6 +79,8 @@ struct Piece
 	PieceId id; // 고정
 	Cell    cell;
 	bool    alive;
+
+	Piece();
 };
 
 struct Action

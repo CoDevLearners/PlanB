@@ -18,3 +18,10 @@ PieceId::PieceId(Owner owner, PieceType pieceType, uint8_t number) :
 	this->type   = pieceType;
 	this->number = number;
 }
+
+Piece::Piece() 
+{
+	id    = InvalidPieceId;
+	cell  = { static_cast<uint32_t>(-1), static_cast<uint32_t>( -1 ) };
+	alive = false;
+}
