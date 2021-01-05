@@ -82,22 +82,11 @@ int main(void)
 	SetConsoleTextAttribute(hOut, 13);
 	std::cout << "C";
 	
-	// SetConsoleTextAttribute(chdr, 14);
-	// wprintf(L"%s\n", L"test");
-	// SetConsoleTextAttribute(chdr, 2);
-	// printf("%s\n", u8"한글");
-	// wprintf(L"%s\n", L"\342\230\272");
-	// std::cout << "\342\230\272" << std::endl;
-
 	getchar();
 
 	SetConsoleTextAttribute(hOut, 12);
-	// IGameHandle *hGame = IGameHandle::CreateGame();
-	// std::cout << hGame->GetTurnOwner() << std::endl;
-	// 
-	// Cell cell = { 0, 0 };
-	// hGame->GetHint(cell);
-
+	IGameHandle *hGame = GetBuffaloChessGameHandle();
+	hGame->Initalize();
 
 	return 0;
 }
