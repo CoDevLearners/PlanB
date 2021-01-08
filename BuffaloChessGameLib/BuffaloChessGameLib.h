@@ -3,4 +3,4 @@
 #include "Common.h"
 #include "IGameHandle.h"
 
-IGameHandle *GetBuffaloChessGameHandle();
+IGameHandle* CreateBuffaloChessGame();

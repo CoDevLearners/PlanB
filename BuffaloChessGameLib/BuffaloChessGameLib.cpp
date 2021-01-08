@@ -2,9 +2,7 @@
 #include "BuffaloChessGameLib.h"
 #include "BuffaloChessGame.h"
 
-BuffaloChessGame *pBuffaloChessGame = new BuffaloChessGame();
-
-IGameHandle *GetBuffaloChessGameHandle()
+IGameHandle *CreateBuffaloChessGame()
 {
-	return dynamic_cast<IGameHandle *>( pBuffaloChessGame );
+	return dynamic_cast<IGameHandle *>( new BuffaloChessGame() );
 }

@@ -82,11 +82,19 @@ int main(void)
 	SetConsoleTextAttribute(hOut, 13);
 	std::cout << "C";
 	
-	getchar();
+	// getchar();
 
-	SetConsoleTextAttribute(hOut, 12);
-	IGameHandle *hGame = GetBuffaloChessGameHandle();
+	SetConsoleTextAttribute(hOut, 10);
+	IGameHandle *hGame = CreateBuffaloChessGame();
 	hGame->Initalize();
+
+	auto pieces1 = hGame->GetAlivePieces();
+	auto pieces2 = hGame->GetDeadPieces();
+
+	PieceId id1;
+	PieceId id2(Owner::River, PieceType::Invalid, 0);
+
+	std::cout << ( id1 == id2 ) << std::endl;
 
 	return 0;
 }

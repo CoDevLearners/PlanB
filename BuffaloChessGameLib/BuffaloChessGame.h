@@ -9,8 +9,9 @@
 using Board = PieceId[MAX_BOARD_ROW][MAX_BOARD_COL];	// 11За, 7ї­
 
 enum class GameState : uint8_t {
-	Invalid = static_cast<uint8_t>( -1 ),
-	InGame = 0,
+	Invalid = 0xff,
+	Ready = 0x00,
+	InGame,
 	GameOver,
 };
 
@@ -18,14 +19,34 @@ class BuffaloChessGame : public IGameHandle
 {
 private:
 	Board m_boards;
-	Piece m_pieces[NUM_TOTAL_PIECE];
-	uint32_t m_numAlivePieces;
-	Piece *m_alivePieces[NUM_TOTAL_PIECE];
-	uint32_t m_numDeadPieces;
-	Piece *m_deadPieces[NUM_TOTAL_PIECE];
+	std::vector<Piece> m_pieceArr;
+	std::set<Piece *> m_alivePiecePtrs;
+	std::set<Piece *> m_deadPiecePtrs;
 
 	GameState m_state;
 	uint32_t m_numSeq;
+
+	static constexpr uint32_t NumDir = 8;
+	static const Cell Dir[NumDir];
+
+	void MakeBoardClean();
+	void GenAllGrassPiece();
+	void GenAllRiverPiece();
+
+	void SetDeadPiece(const PieceId &id);
+	void SetAlivePieve(const PieceId &id);
+	void MovePiece(const PieceId &id, const Cell &cell);
+
+	bool InBoard(const Cell &cell);
+	bool EmptyCell(const Cell &cell);
+	PieceId GetPieceId(const Cell &cell);
+
+	bool ExistMovableBuffalo();
+	bool BuffaloHasArrived();
+
+	void CalcBuffaloAction(const Piece &piece, std::vector<Action> &actions);
+	void CalcDogAction(const Piece &piece, std::vector<Action> &actions);
+	void CalcChiefAction(const Piece &piece, std::vector<Action> &actions);
 
 public:
 	BuffaloChessGame();

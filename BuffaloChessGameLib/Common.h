@@ -8,6 +8,7 @@
 #define NUM_BUFFALO   (11)
 #define NUM_DOG		  (4)
 #define NUM_CHIEF	  (1)
+#define RIVER_ROW	  (0)
 
 #define __VAR_TO_STR(v)	#v
 
@@ -30,15 +31,21 @@
 */
 
 
+// Grass(버팔로), River(사냥꾼)
 enum class Owner : uint8_t {
-	Invalid = static_cast<uint8_t>( -1 ),
-	Grass = 0,
+	Invalid = 0xff,
+	Grass = 0x00,
 	River,
 };
 
+// 기물 종류 
+//   Grass 팀
+//     Buffalo
+//   River 팀
+//     Chief, Dog
 enum class PieceType : uint8_t {
-	Invalid = static_cast<uint8_t>( -1 ),
-	Buffalo = 0,
+	Invalid = 0xff,
+	Buffalo = 0x00,
 	Cheif,
 	Dog,
 };
@@ -62,9 +69,11 @@ public:
 
 	operator uint32_t () const;
 
+	// 기본 생성 시 Invalid ID
+	//   Invalid ID = owner(Ownwer::Invalid), pieceType(PieceType::Invalid), number(-1)
 	PieceId();
 
-	PieceId(Owner owner, PieceType pieceType, uint8_t number);
+	PieceId(Owner owner, PieceType pieceType, uint16_t number);
 };
 
 const PieceId InvalidPieceId = PieceId();
@@ -72,7 +81,15 @@ const PieceId InvalidPieceId = PieceId();
 struct Cell {
 	uint32_t row;
 	uint32_t col;
+
+	Cell();
+	Cell(uint32_t row, uint32_t col);
 };
+
+Cell operator+(const Cell &lhs, const Cell &rhs);
+Cell operator-(const Cell &lhs, const Cell &rhs);
+bool operator==(const Cell &lhs, const Cell &rhs);
+
 
 struct Piece
 {
@@ -97,4 +114,6 @@ struct Action
 	// 누군가의 승리
 	bool hasWon;
 	Owner owner;
+
+	Action();
 };
