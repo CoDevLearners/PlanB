@@ -8,5 +8,5 @@ DogPiece::DogPiece(PieceInfo info) :
 DogPiece::~DogPiece()
 {}
 
-void DogPiece::CalcAction(const GameContext *const pContext)
+void DogPiece::CalcAction(GameContext *const pContext)
 {}

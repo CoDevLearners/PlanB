@@ -158,7 +158,7 @@ PieceInfo BuffaloChess::GetPieceInfo(const Cell &cell)
 const std::vector<Action *> BuffaloChess::GetHint(const PieceInfo &pieceInfo)
 {
 	const Cell &cell = pieceInfo.cell;
-	PieceBase *pPiece = m_pGameContext->board[cell.row][cell.col];
+	PieceBase *pPiece = m_pGameContext->GetPiece(cell);
 
 	const std::vector<ActionBase *> actions = pPiece->GetHints(m_pGameContext);
 
@@ -198,6 +198,19 @@ std::vector<PieceInfo> BuffaloChess::GetAlivePieces()
 std::vector<PieceInfo> BuffaloChess::GetDeadPieces()
 {
 	return std::vector<PieceInfo>();
+}
+
+PieceBase *BuffaloChess::GetBuffaloArrivintAtRiver()
+{
+	for ( size_t i = 0; i < NUM_BUFFALO; ++i )
+	{
+		const PieceInfo *pInfo = m_pieces[i]->GetPieceInfo();
+		if ( pInfo->isAlive && (pInfo->cell.row == RIVER_ROW))
+		{
+			return m_pieces[i];
+		}
+	}
+	return nullptr;
 }
 
 GameContext::GameContext(uint8_t row, uint8_t col) :

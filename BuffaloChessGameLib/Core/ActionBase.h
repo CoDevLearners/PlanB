@@ -12,7 +12,7 @@ public:
 	ActionBase();
 	virtual ~ActionBase();
 
-	virtual bool Operator(const GameContext *pContext) = 0;
+	virtual bool Operator(GameContext *pContext) = 0;
 
 	virtual const Action * const GetHint();
 };

@@ -190,6 +190,7 @@ xcopy /Y  "$(ProjectDir)IBuffaloChess.h" "$(OutDir)include"</Command>
     <ClInclude Include="Core\BuffaloPiece.h" />
     <ClInclude Include="Core\ChiefPiece.h" />
     <ClInclude Include="Core\DogPiece.h" />
+    <ClInclude Include="Core\KillAction.h" />
     <ClInclude Include="Core\MoveAction.h" />
     <ClInclude Include="Core\PieceBase.h" />
     <ClInclude Include="IBuffaloChess.h" />
@@ -203,6 +204,7 @@ xcopy /Y  "$(ProjectDir)IBuffaloChess.h" "$(OutDir)include"</Command>
     <ClCompile Include="Core\BuffaloPiece.cpp" />
     <ClCompile Include="Core\ChiefPiece.cpp" />
     <ClCompile Include="Core\DogPiece.cpp" />
+    <ClCompile Include="Core\KillAction.cpp" />
     <ClCompile Include="Core\MoveAction.cpp" />
     <ClCompile Include="Core\PieceBase.cpp" />
     <ClCompile Include="pch.cpp">

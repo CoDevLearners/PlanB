@@ -24,7 +24,7 @@ void PieceBase::ClearHints()
 	}
 }
 
-const std::vector<ActionBase *> PieceBase::GetHints(const GameContext *const pContext)
+const std::vector<ActionBase *> PieceBase::GetHints(GameContext *const pContext)
 {
 	if ( !m_hasCalcHint )
 	{
@@ -53,7 +53,7 @@ bool PieceBase::CheckValidHint(const ActionBase *pHint)
 	return false;
 }
 
-bool PieceBase::SetDead(GameContext *pContext)
+bool PieceBase::SetDead(GameContext * const pContext)
 {
 	if ( nullptr == pContext )
 	{
@@ -66,7 +66,29 @@ bool PieceBase::SetDead(GameContext *pContext)
 
 	m_pieceInfo.isAlive = false;
 	const Cell &currCell = m_pieceInfo.cell;
-	pContext->board[currCell.row][currCell.col] = nullptr;
+	pContext->SetPiece(currCell, nullptr);
 
 	return false;
+}
+
+bool PieceBase::Move(GameContext *pContext, const Cell &cell)
+{
+	if ( nullptr == pContext )
+	{
+		return false;
+	}
+	if ( false == m_pieceInfo.isAlive )
+	{
+		return false;
+	}
+	if ( nullptr != pContext->GetPiece(cell) )
+	{
+		return false;
+	}
+
+	pContext->SetPiece(m_pieceInfo.cell, nullptr);
+	m_pieceInfo.cell = cell;
+	pContext->SetPiece(cell, this);
+
+	return true;
 }

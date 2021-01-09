@@ -4,14 +4,14 @@
 #include "PieceBase.h"
 #include "BuffaloChess.h"
 
-MoveAction::MoveAction(PieceBase *piece, const Cell &cell) :
-    m_pPiece(piece), m_dstCell(cell)
+MoveAction::MoveAction(PieceBase *pPiece, const Cell &cell) :
+    m_pPiece(pPiece), m_dstCell(cell)
 {
     m_hint.piece = *( m_pPiece->GetPieceInfo() );
     m_hint.destination = cell;
 }
 
-bool MoveAction::Operator(const GameContext *pContext)
+bool MoveAction::Operator(GameContext *pContext)
 {
     if ( m_pPiece != pContext->GetPiece(m_dstCell) )
     {
@@ -23,7 +23,7 @@ bool MoveAction::Operator(const GameContext *pContext)
         return false;
     }
 
-    pContext->SetPiece(m_dstCell, m_pPiece);
+    m_pPiece->Move(pContext, m_dstCell);
 
     return true;
 }

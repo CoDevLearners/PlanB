@@ -54,15 +54,15 @@
     <ClInclude Include="Core\MoveAction.h">
       <Filter>헤더 파일\Core</Filter>
     </ClInclude>
+    <ClInclude Include="Core\KillAction.h">
+      <Filter>헤더 파일\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BuffaloChessGameLib.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Common.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Core\BuffaloChess.cpp">
@@ -77,13 +77,19 @@
     <ClCompile Include="Core\BuffaloPiece.cpp">
       <Filter>소스 파일\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Core\DogPiece.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\ChiefPiece.cpp">
-      <Filter>소스 파일</Filter>
+    <ClCompile Include="Core\KillAction.cpp">
+      <Filter>소스 파일\Core</Filter>
     </ClCompile>
     <ClCompile Include="Core\MoveAction.cpp">
+      <Filter>소스 파일\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\ChiefPiece.cpp">
+      <Filter>소스 파일\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\DogPiece.cpp">
+      <Filter>소스 파일\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Common.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

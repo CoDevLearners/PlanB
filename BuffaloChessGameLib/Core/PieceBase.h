@@ -21,11 +21,13 @@ public:
 
 	virtual void ClearHints();
 
-	virtual const std::vector<ActionBase *> GetHints(const GameContext *const pContext);
+	virtual const std::vector<ActionBase *> GetHints(GameContext *const pContext);
 
 	virtual bool CheckValidHint(const ActionBase *pHint);
 
-	virtual void CalcAction(const GameContext *const pContext) = 0;
+	virtual void CalcAction(GameContext *const pContext) = 0;
 
 	virtual bool SetDead(GameContext *pContext);
+
+	virtual bool Move(GameContext *pContext, const Cell &cell);
 };

@@ -8,5 +8,5 @@ ChiefPiece::ChiefPiece(PieceInfo info) :
 ChiefPiece::~ChiefPiece()
 {}
 
-void ChiefPiece::CalcAction(const GameContext *const pContext)
+void ChiefPiece::CalcAction(GameContext *const pContext)
 {}

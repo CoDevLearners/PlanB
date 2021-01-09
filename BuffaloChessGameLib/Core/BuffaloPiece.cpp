@@ -10,7 +10,7 @@ BuffaloPiece::BuffaloPiece(PieceInfo info) :
 BuffaloPiece::~BuffaloPiece()
 {}
 
-void BuffaloPiece::CalcAction(const GameContext *const pContext)
+void BuffaloPiece::CalcAction(GameContext *const pContext)
 {
     if ( m_hasCalcHint )
     {

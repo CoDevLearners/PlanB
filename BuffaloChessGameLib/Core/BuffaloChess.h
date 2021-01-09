@@ -59,4 +59,5 @@ public:
 
 	virtual std::vector<PieceInfo> GetDeadPieces() override;
 
+	PieceBase *GetBuffaloArrivintAtRiver();
 };
