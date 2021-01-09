@@ -113,13 +113,18 @@ BuffaloChessGame::BuffaloChessGame() :
 	assert(MAX_BOARD_COL >= ( NUM_DOG + NUM_CHIEF ));
 }
 
-bool BuffaloChessGame::ExistMovableBuffalo()
+bool BuffaloChessGame::ExistMovableBuffalo(const PieceId &exceptPiece)
 {
 	uint32_t pieceOffset = 0;
 
 	for ( uint32_t i = pieceOffset; i < NUM_BUFFALO; i++ )
 	{
 		Piece &buffalo = m_pieceArr[i];
+		if ( buffalo.id == exceptPiece )
+		{
+			continue;
+		}
+
 		Cell nextStep = buffalo.cell - Cell(1, 0);
 		if ( buffalo.alive && InBoard(nextStep) )
 		{
@@ -147,6 +152,11 @@ void BuffaloChessGame::CalcBuffaloAction(const Piece &piece, std::vector<Action>
 	Action action;
 	action.piece = piece;
 	action.destination = next;
+	if ( next.row == RIVER_ROW )
+	{
+		action.hasWon = true;
+		action.owner = piece.id.owner;
+	}
 
 	actions.push_back(action);
 }
@@ -163,6 +173,11 @@ void BuffaloChessGame::CalcDogAction(const Piece &piece, std::vector<Action> &ac
 			Action action;
 			action.piece = piece;
 			action.destination = next;
+			if ( !ExistMovableBuffalo() )
+			{
+				action.hasWon = true;
+				action.owner = piece.id.owner;
+			}
 
 			actions.push_back(action);
 
@@ -186,6 +201,11 @@ void BuffaloChessGame::CalcChiefAction(const Piece &piece, std::vector<Action> &
 				Action action;
 				action.piece = piece;
 				action.destination = next;
+				if ( !ExistMovableBuffalo() )
+				{
+					action.hasWon = true;
+					action.owner = piece.id.owner;
+				}
 
 				actions.push_back(action);
 			}
@@ -196,6 +216,11 @@ void BuffaloChessGame::CalcChiefAction(const Piece &piece, std::vector<Action> &
 				action.destination = next;
 				action.hasKilled = true;
 				action.deadPiece = dstPiece;
+				if ( !ExistMovableBuffalo(dstPiece.id) )
+				{
+					action.hasWon = true;
+					action.owner = piece.id.owner;
+				}
 
 				actions.push_back(action);
 			}
@@ -293,10 +318,14 @@ bool BuffaloChessGame::Update(const Action &action)
 	{
 		if ( action.owner == Owner::Grass )
 		{
+			++m_numSeq;
+			m_state = GameState::GameOver;
 			return true;
 		}
 		else if ( action.owner == Owner::River )
 		{
+			++m_numSeq;
+			m_state = GameState::GameOver;
 			return true;
 		}
 		return false;
@@ -326,6 +355,7 @@ bool BuffaloChessGame::Update(const Action &action)
 			refDstPieceId = piece.id;
 			SetDeadPiece(deadPiece.id);
 			MovePiece(piece.id, dstCell);
+			++m_numSeq;
 			return true;
 		}
 	}
@@ -334,6 +364,7 @@ bool BuffaloChessGame::Update(const Action &action)
 		refSrcPieceId = InvalidPieceId;
 		refDstPieceId = piece.id;
 		MovePiece(piece.id, dstCell);
+		++m_numSeq;
 		return true;
 	}
 
@@ -380,34 +411,14 @@ Piece BuffaloChessGame::GetPiece(const PieceId &pieceId)
 	return Piece();
 }
 
-std::vector<Action> BuffaloChessGame::GetActions(const Cell &cell)
+std::vector<Action> BuffaloChessGame::GetActions(const Owner &owner, const Cell &cell)
 {
 	std::vector<Action> actions;
-
-	if ( !InBoard(cell) )
-	{
-		return actions;
-	} 
-	else if ( BuffaloHasArrived() )
-	{
-		Action action;
-		action.hasWon = true;
-		action.owner = Owner::Grass;
-
-		actions.push_back(action);
-		return actions;
-	}
-	else if ( !ExistMovableBuffalo() )
-	{
-		Action action;
-		action.hasWon = true;
-		action.owner = Owner::River;
-
-		actions.push_back(action);
-		return actions;
-	}
-
 	const Piece piece = GetPiece(cell);
+	if ( owner != piece.id.owner )
+	{
+		return actions;
+	}
 
 	switch ( piece.id.type )
 	{
@@ -465,5 +476,10 @@ std::vector<Piece> BuffaloChessGame::GetDeadPieces()
 	}
 
 	return result;
+}
+
+bool BuffaloChessGame::IsOver()
+{
+	return ( m_state == GameState::GameOver );
 }
 

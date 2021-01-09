@@ -41,7 +41,7 @@ private:
 	bool EmptyCell(const Cell &cell);
 	PieceId GetPieceId(const Cell &cell);
 
-	bool ExistMovableBuffalo();
+	bool ExistMovableBuffalo(const PieceId &exceptPiece = InvalidPieceId);
 	bool BuffaloHasArrived();
 
 	void CalcBuffaloAction(const Piece &piece, std::vector<Action> &actions);
@@ -58,10 +58,11 @@ public:
 	virtual bool Update(const Action &action) override;
 	virtual Piece GetPiece(const Cell &cell) override;
 	virtual Piece GetPiece(const PieceId &pieceId) override;
-	virtual std::vector<Action> GetActions(const Cell &cell) override;
+	virtual std::vector<Action> GetActions(const Owner &owner, const Cell &cell) override;
 	virtual Owner GetTurnOwner() override;
 	virtual std::vector<Piece> GetAllPieces() override;
 	virtual std::vector<Piece> GetAlivePieces() override;
 	virtual std::vector<Piece> GetDeadPieces() override;
+	virtual bool IsOver() override;
 };
 

@@ -3,98 +3,95 @@
 
 #include "../BuffaloChessGameLib/BuffaloChessGameLib.h"
 
+#include "ConsoleRender.h"
 
-#ifdef UNICODE
-
-typedef wchar_t xchar;
-
-#else
-
-typedef char xchar;
-
-#endif
-
-
-
-void cls(const HANDLE &hOut)
+void SetNextTurn(Owner &owner)
 {
-    CONSOLE_SCREEN_BUFFER_INFO csbi;
-    COORD topLeft = { 0, 0 };
-
-    std::cout.flush();
-
-    if ( !GetConsoleScreenBufferInfo(hOut, &csbi) )
-    {
-        abort();
-    }
-
-    DWORD length = csbi.dwSize.X * csbi.dwSize.Y;
-
-    DWORD written;
-
-    FillConsoleOutputCharacter(hOut, TEXT(' '), length, topLeft, &written);
-
-    FillConsoleOutputAttribute(hOut, csbi.wAttributes, length, topLeft, &written);
-
-    SetConsoleCursorPosition(hOut, topLeft);
+	if ( owner == Owner::Grass )
+	{
+		owner = Owner::River;
+	}
+	else if ( owner == Owner::River )
+	{
+		owner = Owner::Grass;
+	}
 }
 
-void ChangeChar(const HANDLE &hOut, const xchar &c, const Cell &cell)
+void GameProc(ConsoleRender *pRender, IGameHandle *pGame)
 {
-	COORD here;
-	here.X = static_cast<SHORT>( cell.col );
-	here.Y = static_cast<SHORT>( cell.row );
+	if ( pGame->IsOver() )
+	{
+		return;
+	}
 
-	DWORD dw;
-	WriteConsoleOutputCharacter(hOut, &c, 1, here, &dw);
+	do
+	{
+		Owner owner = pGame->GetTurnOwner();
+		Cell selCell;
+		std::vector<Action> actions;
+		Action *pAction = nullptr;
+
+		do
+		{
+			pRender->PrintChessBoard();
+			std::vector<Piece> pieces = pGame->GetAlivePieces();
+			for ( const Piece &piece : pieces )
+			{
+				pRender->PrintPiece(piece);
+			}
+			pRender->PrintTurnHelp(owner);
+
+			do
+			{
+				pRender->ClearInputArea();
+				pRender->PrintStateHelp(ConsoleRender::State::WaitInput);
+				std::cin >> selCell.col >> selCell.row;
+				selCell = selCell - Cell(1, 1);
+
+				actions = pGame->GetActions(owner, selCell);
+			} 
+			while ( actions.empty() );
+
+			for ( const Action &action : actions )
+			{
+				pRender->PrintHint(action);
+			}
+
+
+			pAction = nullptr;
+			pRender->PrintStateHelp(ConsoleRender::State::WaitSelect);
+			std::cin >> selCell.col >> selCell.row;
+			selCell = selCell - Cell(1, 1);
+
+			int selIdx = -1;
+			int numAction = actions.size();
+			for ( int i = 0; i < numAction; ++i )
+			{
+				if ( actions[i].destination == selCell )
+				{
+					selIdx = i;
+					break;
+				}
+			}
+			if ( selIdx < 0 )
+			{
+				continue;
+			}
+			pAction = &actions[selIdx];
+		} 
+		while ( ( nullptr == pAction ) || !pGame->Update(*pAction) );
+	}
+	while ( !pGame->IsOver() );
 }
 
 
 int main(void)
 {
-	SetConsoleOutputCP(CP_UTF8);
-	system("mode con cols=60 lines=17 | title Buffalo Chess Console"); // 콘솔창 크기 및 제목 설정
+	ConsoleRender *pRender = new ConsoleRender();
+	IGameHandle *pGame = CreateBuffaloChessGame();
+	pGame->Initalize();
 
-	HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
-
-	for ( xchar i = 'a'; i <= 'a'; i++ )
-	{
-		SetConsoleTextAttribute(hOut, 14);
-		for ( int j = 0; j < 1020; j++ )
-		{
-			printf("%c", i);
-		}
-	}
-
-	for ( xchar i = 'b'; i <= 'z'; i++ )
-	{
-		Cell cell;
-		cell.col = ( i - 'a' ) % 60;
-		cell.row = ( i - 'a' ) / 60;
-
-		ChangeChar(hOut, i, cell);
-	}
-
-	SetConsoleTextAttribute(hOut, 9);
-	std::cout << "A";
-	SetConsoleTextAttribute(hOut, 5);
-	std::cout << "B";
-	SetConsoleTextAttribute(hOut, 13);
-	std::cout << "C";
-	
-	// getchar();
-
-	SetConsoleTextAttribute(hOut, 10);
-	IGameHandle *hGame = CreateBuffaloChessGame();
-	hGame->Initalize();
-
-	auto pieces1 = hGame->GetAlivePieces();
-	auto pieces2 = hGame->GetDeadPieces();
-
-	PieceId id1;
-	PieceId id2(Owner::River, PieceType::Invalid, 0);
-
-	std::cout << ( id1 == id2 ) << std::endl;
+	GameProc(pRender, pGame);
 
 	return 0;
 }

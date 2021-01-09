@@ -11,9 +11,10 @@ __interface IGameHandle
 	virtual bool Update(const Action &action) = 0;
 	virtual Piece GetPiece(const Cell& cell) = 0;
 	virtual Piece GetPiece(const PieceId& pieceId) = 0;
-	virtual std::vector<Action> GetActions(const Cell &cell) = 0;
+	virtual std::vector<Action> GetActions(const Owner &owner, const Cell &cell) = 0;
 	virtual Owner GetTurnOwner() = 0;
 	virtual std::vector<Piece> GetAllPieces() = 0;
 	virtual std::vector<Piece> GetAlivePieces() = 0;
 	virtual std::vector<Piece> GetDeadPieces() = 0;
+	virtual bool IsOver() = 0;
 };
