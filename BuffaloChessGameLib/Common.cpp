@@ -2,32 +2,6 @@
 #include "Common.h"
 
 
-PieceId::operator uint32_t() const
-{
-	return key;
-}
-
-PieceId::PieceId() :
-	key(-1)
-{}
-
-PieceId::PieceId(Owner owner, PieceType pieceType, uint16_t number) 
-{
-	this->owner  = owner;
-	this->type   = pieceType;
-	this->number = number;
-}
-
-Piece::Piece() :
-	alive(false)
-{}
-
-Piece::Piece(PieceId id, Cell cell, bool alive) :
-	id(id),
-	cell(cell),
-	alive(alive)
-{}
-
 Cell::Cell() :
 	row(0),
 	col(0)
@@ -53,11 +27,15 @@ bool operator==(const Cell &lhs, const Cell &rhs)
 	return ( ( lhs.row == rhs.row ) && ( lhs.col == rhs.col ) );
 }
 
-Action::Action() :
-	piece(),
-	destination(),
-	hasKilled(false),
-	deadPiece(),
-	hasWon(false),
-	owner(Owner::Invalid)
+bool operator==(const PieceInfo &lhs, const PieceInfo &rhs)
+{
+	return ( 0 == memcmp(&lhs, &rhs, sizeof(PieceInfo)) );
+}
+
+PieceInfo::PieceInfo() :
+	PieceInfo(PlayerType::None, PieceType::None, 0, false, Cell())
+{}
+
+PieceInfo::PieceInfo(PlayerType owner, PieceType type, PieceId id, bool isAlive, Cell cell) :
+	owner(owner), type(type), id(id), isAlive(isAlive), cell(cell)
 {}

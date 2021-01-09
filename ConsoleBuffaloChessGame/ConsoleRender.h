@@ -32,13 +32,13 @@ public:
 	ConsoleRender();
 
 	void PrintChessBoard();
-	void PrintTurnHelp(const Owner &owner);
+	void PrintTurnHelp(const PlayerType &owner);
 	void PrintStateHelp(const State &state);
 
-	void PrintPiece(const Piece &piece);
+	void PrintPiece(const PieceInfo &piece);
 	void ClearInputArea();
-	void PrintHint(const Action &action);
+	void PrintHint(const IHint &action);
 
-	void PrintVictory(const Owner &owner);
+	void PrintVictory(const PlayerType &owner);
 };
 

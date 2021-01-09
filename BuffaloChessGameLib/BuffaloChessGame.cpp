@@ -318,13 +318,11 @@ bool BuffaloChessGame::Update(const Action &action)
 	{
 		if ( action.owner == Owner::Grass )
 		{
-			++m_numSeq;
 			m_state = GameState::GameOver;
 			return true;
 		}
 		else if ( action.owner == Owner::River )
 		{
-			++m_numSeq;
 			m_state = GameState::GameOver;
 			return true;
 		}

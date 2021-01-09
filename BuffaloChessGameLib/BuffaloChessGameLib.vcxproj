@@ -90,6 +90,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -101,7 +102,7 @@
       <Command>mkdir "$(OutDir)include"
 xcopy /Y  "$(ProjectDir)BuffaloChessGameLib.h" "$(OutDir)include"
 xcopy /Y  "$(ProjectDir)Common.h" "$(OutDir)include"
-xcopy /Y  "$(ProjectDir)IGameHandle.h" "$(OutDir)include"</Command>
+xcopy /Y  "$(ProjectDir)IBuffaloChess.h" "$(OutDir)include"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -114,6 +115,7 @@ xcopy /Y  "$(ProjectDir)IGameHandle.h" "$(OutDir)include"</Command>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -127,7 +129,7 @@ xcopy /Y  "$(ProjectDir)IGameHandle.h" "$(OutDir)include"</Command>
       <Command>mkdir "$(OutDir)include"
 xcopy /Y  "$(ProjectDir)BuffaloChessGameLib.h" "$(OutDir)include"
 xcopy /Y  "$(ProjectDir)Common.h" "$(OutDir)include"
-xcopy /Y  "$(ProjectDir)IGameHandle.h" "$(OutDir)include"</Command>
+xcopy /Y  "$(ProjectDir)IBuffaloChess.h" "$(OutDir)include"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -138,6 +140,7 @@ xcopy /Y  "$(ProjectDir)IGameHandle.h" "$(OutDir)include"</Command>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -149,7 +152,7 @@ xcopy /Y  "$(ProjectDir)IGameHandle.h" "$(OutDir)include"</Command>
       <Command>mkdir "$(OutDir)include"
 xcopy /Y  "$(ProjectDir)BuffaloChessGameLib.h" "$(OutDir)include"
 xcopy /Y  "$(ProjectDir)Common.h" "$(OutDir)include"
-xcopy /Y  "$(ProjectDir)IGameHandle.h" "$(OutDir)include"</Command>
+xcopy /Y  "$(ProjectDir)IBuffaloChess.h" "$(OutDir)include"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -162,6 +165,7 @@ xcopy /Y  "$(ProjectDir)IGameHandle.h" "$(OutDir)include"</Command>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -175,20 +179,32 @@ xcopy /Y  "$(ProjectDir)IGameHandle.h" "$(OutDir)include"</Command>
       <Command>mkdir "$(OutDir)include"
 xcopy /Y  "$(ProjectDir)BuffaloChessGameLib.h" "$(OutDir)include"
 xcopy /Y  "$(ProjectDir)Common.h" "$(OutDir)include"
-xcopy /Y  "$(ProjectDir)IGameHandle.h" "$(OutDir)include"</Command>
+xcopy /Y  "$(ProjectDir)IBuffaloChess.h" "$(OutDir)include"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="BuffaloChessGame.h" />
     <ClInclude Include="BuffaloChessGameLib.h" />
     <ClInclude Include="Common.h" />
-    <ClInclude Include="IGameHandle.h" />
+    <ClInclude Include="Core\ActionBase.h" />
+    <ClInclude Include="Core\BuffaloChess.h" />
+    <ClInclude Include="Core\BuffaloPiece.h" />
+    <ClInclude Include="Core\ChiefPiece.h" />
+    <ClInclude Include="Core\DogPiece.h" />
+    <ClInclude Include="Core\MoveAction.h" />
+    <ClInclude Include="Core\PieceBase.h" />
+    <ClInclude Include="IBuffaloChess.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BuffaloChessGame.cpp" />
     <ClCompile Include="BuffaloChessGameLib.cpp" />
     <ClCompile Include="Common.cpp" />
+    <ClCompile Include="Core\ActionBase.cpp" />
+    <ClCompile Include="Core\BuffaloChess.cpp" />
+    <ClCompile Include="Core\BuffaloPiece.cpp" />
+    <ClCompile Include="Core\ChiefPiece.cpp" />
+    <ClCompile Include="Core\DogPiece.cpp" />
+    <ClCompile Include="Core\MoveAction.cpp" />
+    <ClCompile Include="Core\PieceBase.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

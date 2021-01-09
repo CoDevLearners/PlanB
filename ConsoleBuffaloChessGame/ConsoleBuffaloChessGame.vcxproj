@@ -155,7 +155,6 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ConsoleBuffaloCessGame.cpp" />
     <ClCompile Include="ConsoleRender.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -165,7 +164,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ConsoleBuffaloCessGame.h" />
     <ClInclude Include="ConsoleRender.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

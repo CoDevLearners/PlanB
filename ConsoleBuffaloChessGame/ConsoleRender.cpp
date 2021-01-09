@@ -64,42 +64,42 @@ void ConsoleRender::ClearInputArea()
 	SetConsoleCursorPosition(m_hOut, topLeft);
 }
 
-void ConsoleRender::PrintHint(const Action &action)
+void ConsoleRender::PrintHint(const IHint &action)
 {
-	std::cout.flush();
-
-	short xOffset = 5;
-	short yOffset = 3;
-	short yStep = 2;
-	short xStep = 4;
-
-	if ( action.hasKilled )
-	{
-		const Piece &deadPiece = action.deadPiece;
-		const Cell &deadCell = deadPiece.cell;
-
-		COORD pos = {
-				xOffset + 3 + ( deadCell.col * xStep ),
-				yOffset + 2 + ( ( MAX_BOARD_ROW - 1 - deadCell.row ) * yStep )
-		};
-		SetConsoleTextAttribute(m_hOut, 4);
-		SetConsoleCursorPosition(m_hOut, pos);
-		std::cout << u8"소";
-	}
-	else
-	{
-		const Cell &cell = action.destination;
-		COORD pos = {
-			xOffset + 3 + ( cell.col * xStep ),
-			yOffset + 2 + ( ( MAX_BOARD_ROW - 1 - cell.row ) * yStep )
-		};
-		SetConsoleTextAttribute(m_hOut, 8);
-		SetConsoleCursorPosition(m_hOut, pos);
-		std::cout << u8"○";
-	}
+	//std::cout.flush();
+	//
+	//short xOffset = 5;
+	//short yOffset = 3;
+	//short yStep = 2;
+	//short xStep = 4;
+	//
+	//if ( action.hasKilled )
+	//{
+	//	const Piece &deadPiece = action.deadPiece;
+	//	const Cell &deadCell = deadPiece.cell;
+	//
+	//	COORD pos = {
+	//			xOffset + 3 + ( deadCell.col * xStep ),
+	//			yOffset + 2 + ( ( MAX_BOARD_ROW - 1 - deadCell.row ) * yStep )
+	//	};
+	//	SetConsoleTextAttribute(m_hOut, 4);
+	//	SetConsoleCursorPosition(m_hOut, pos);
+	//	std::cout << u8"소";
+	//}
+	//else
+	//{
+	//	const Cell &cell = action.destination;
+	//	COORD pos = {
+	//		xOffset + 3 + ( cell.col * xStep ),
+	//		yOffset + 2 + ( ( MAX_BOARD_ROW - 1 - cell.row ) * yStep )
+	//	};
+	//	SetConsoleTextAttribute(m_hOut, 8);
+	//	SetConsoleCursorPosition(m_hOut, pos);
+	//	std::cout << u8"○";
+	//}
 }
 
-void ConsoleRender::PrintVictory(const Owner &owner)
+void ConsoleRender::PrintVictory(const PlayerType &owner)
 {
 	ClearInputArea();
 
@@ -107,7 +107,7 @@ void ConsoleRender::PrintVictory(const Owner &owner)
 	DWORD written;
 	FillConsoleOutputCharacter(m_hOut, TEXT(' '), 57, { 0, 24 }, &written);
 
-	if ( owner == Owner::Grass )
+	if ( owner == PlayerType::Grass )
 	{
 		SetConsoleCursorPosition(m_hOut, { 0, 24 });
 
@@ -116,7 +116,7 @@ void ConsoleRender::PrintVictory(const Owner &owner)
 		SetConsoleTextAttribute(m_hOut, 15);
 		std::cout << u8" 팀이 이겼습니다";
 	}
-	else if ( owner == Owner::River )
+	else if ( owner == PlayerType::River )
 	{
 		SetConsoleCursorPosition(m_hOut, { 0, 24 });
 
@@ -193,82 +193,80 @@ void ConsoleRender::PrintChessBoard()
 
 }
 
-void ConsoleRender::PrintPiece(const Piece &piece)
+void ConsoleRender::PrintPiece(const PieceInfo &piece)
 {
-	std::cout.flush();
-
-	short xOffset = 5;
-	short yOffset = 3;
-	short yStep   = 2;
-	short xStep   = 4;
-
-	if ( piece.id.type == PieceType::Buffalo )
-	{
-		SetConsoleTextAttribute(m_hOut, 6);
-
-		const Cell &cell = piece.cell;
-		COORD pos = { 
-			xOffset + 3 + ( cell.col * xStep ),
-			yOffset + 2 + ( ( MAX_BOARD_ROW - 1 - cell.row ) * yStep ) 
-		};
-		SetConsoleCursorPosition(m_hOut, pos);
-
-		std::cout << u8"소";
-	}
-	else if ( piece.id.type == PieceType::Dog )
-	{
-		SetConsoleTextAttribute(m_hOut, 7);
-
-		const Cell &cell = piece.cell;
-		COORD pos = { 
-			xOffset + 3 + ( cell.col * xStep ),
-			yOffset + 2 + ( ( MAX_BOARD_ROW - 1 - cell.row ) * yStep ) 
-		};
-		SetConsoleCursorPosition(m_hOut, pos);
-
-		std::cout << u8"개";
-	}
-	else if ( piece.id.type == PieceType::Cheif )
-	{
-		SetConsoleTextAttribute(m_hOut, 4);
-
-		const Cell &cell = piece.cell;
-		COORD pos = { 
-			xOffset + 3 + ( cell.col * xStep ),
-			yOffset + 2 + ( ( MAX_BOARD_ROW - 1 - cell.row ) * yStep ) 
-		};
-		SetConsoleCursorPosition(m_hOut, pos);
-
-		std::cout << u8"총";
-	}
-
-
+	// std::cout.flush();
+	// 
+	// short xOffset = 5;
+	// short yOffset = 3;
+	// short yStep   = 2;
+	// short xStep   = 4;
+	// 
+	// if ( piece.id.type == PieceType::Buffalo )
+	// {
+	// 	SetConsoleTextAttribute(m_hOut, 6);
+	// 
+	// 	const Cell &cell = piece.cell;
+	// 	COORD pos = { 
+	// 		xOffset + 3 + ( cell.col * xStep ),
+	// 		yOffset + 2 + ( ( MAX_BOARD_ROW - 1 - cell.row ) * yStep ) 
+	// 	};
+	// 	SetConsoleCursorPosition(m_hOut, pos);
+	// 
+	// 	std::cout << u8"소";
+	// }
+	// else if ( piece.id.type == PieceType::Dog )
+	// {
+	// 	SetConsoleTextAttribute(m_hOut, 7);
+	// 
+	// 	const Cell &cell = piece.cell;
+	// 	COORD pos = { 
+	// 		xOffset + 3 + ( cell.col * xStep ),
+	// 		yOffset + 2 + ( ( MAX_BOARD_ROW - 1 - cell.row ) * yStep ) 
+	// 	};
+	// 	SetConsoleCursorPosition(m_hOut, pos);
+	// 
+	// 	std::cout << u8"개";
+	// }
+	// else if ( piece.id.type == PieceType::Cheif )
+	// {
+	// 	SetConsoleTextAttribute(m_hOut, 4);
+	// 
+	// 	const Cell &cell = piece.cell;
+	// 	COORD pos = { 
+	// 		xOffset + 3 + ( cell.col * xStep ),
+	// 		yOffset + 2 + ( ( MAX_BOARD_ROW - 1 - cell.row ) * yStep ) 
+	// 	};
+	// 	SetConsoleCursorPosition(m_hOut, pos);
+	// 
+	// 	std::cout << u8"총";
+	// }
 }
 
-void ConsoleRender::PrintTurnHelp(const Owner &owner)
+void ConsoleRender::PrintTurnHelp(const PlayerType &owner)
 {
-	std::cout.flush();
-	DWORD written;
-	FillConsoleOutputCharacter(m_hOut, TEXT(' '), 57, { 0, 24 }, &written);
-
-	if ( owner == Owner::Grass )
-	{
-		SetConsoleCursorPosition(m_hOut, { 0, 24 });
-
-		SetConsoleTextAttribute(m_hOut, 10);
-		std::cout << u8"Grass";
-		SetConsoleTextAttribute(m_hOut, 15);
-		std::cout << u8" 팀 차례입니다.";
-	}
-	else if ( owner == Owner::River )
-	{
-		SetConsoleCursorPosition(m_hOut, { 0, 24 });
-
-		SetConsoleTextAttribute(m_hOut, 12);
-		std::cout << u8"River";
-		SetConsoleTextAttribute(m_hOut, 15);
-		std::cout << u8" 팀 차례입니다.";
-	}
+	// std::cout.flush();
+	// DWORD written;
+	// FillConsoleOutputCharacter(m_hOut, TEXT(' '), 57, { 0, 24 }, &written);
+	// 
+	// if ( owner == Owner::Grass )
+	// {
+	// 	SetConsoleCursorPosition(m_hOut, { 0, 24 });
+	// 
+	// 	SetConsoleTextAttribute(m_hOut, 10);
+	// 	std::cout << u8"Grass";
+	// 	SetConsoleTextAttribute(m_hOut, 15);
+	// 	std::cout << u8" 팀 차례입니다.";
+	// }
+	// else if ( owner == Owner::River )
+	// {
+	// 	SetConsoleCursorPosition(m_hOut, { 0, 24 });
+	// 
+	// 	SetConsoleTextAttribute(m_hOut, 12);
+	// 	std::cout << u8"River";
+	// 	SetConsoleTextAttribute(m_hOut, 15);
+	// 	std::cout << u8" 팀 차례입니다.";
+	// }
 }
 
 void ConsoleRender::PrintStateHelp(const State &state)
