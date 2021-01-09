@@ -4,21 +4,15 @@
 
 struct GameContext;
 
-class ActionBase : IHint {
+class ActionBase {
 protected:
-	PieceInfo *m_pPieceInfo;
-	Cell m_destination;
+	Action m_hint;
 
 public:
-	ActionBase(PieceInfo * const info, const Cell &dst);
+	ActionBase();
 	virtual ~ActionBase();
 
 	virtual bool Operator(const GameContext *pContext) = 0;
 
-
-	// IHint을(를) 통해 상속됨
-	virtual const PieceInfo &GetPieceInfo() override;
-
-	virtual const Cell &GetDestination() override;
-
+	virtual const Action * const GetHint();
 };

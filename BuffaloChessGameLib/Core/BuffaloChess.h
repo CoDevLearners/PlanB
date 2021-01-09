@@ -18,7 +18,7 @@ struct GameContext {
 	~GameContext();
 
 	PieceBase* GetPiece(const Cell &cell) const;
-	void SetPiece(PieceBase * const piece) const;
+	void SetPiece(const Cell &cell, PieceBase *const piece) const;
 };
 
 class BuffaloChess : public IBuffaloChess {
@@ -49,9 +49,9 @@ public:
 
 	virtual PieceInfo GetPieceInfo(const Cell &cell) override;
 
-	virtual std::vector<IHint *> GetHint(const PieceInfo &pieceInfo) override;
+	virtual const std::vector<Action *> GetHint(const PieceInfo &pieceInfo) override;
 
-	virtual bool Update(const IHint *pHint) override;
+	virtual bool Update(const Action *pHint) override;
 
 	virtual std::vector<PieceInfo> GetAllPieces() override;
 

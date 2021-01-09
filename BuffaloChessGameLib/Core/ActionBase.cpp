@@ -1,19 +1,15 @@
 #include "pch.h"
 #include "ActionBase.h"
 
-ActionBase::ActionBase(PieceInfo * const info, const Cell &dst) :
-	m_pPieceInfo(info), m_destination(dst)
+
+ActionBase::ActionBase() :
+	m_hint()
 {}
 
 ActionBase::~ActionBase()
 {}
 
-const PieceInfo &ActionBase::GetPieceInfo()
+const Action *const ActionBase::GetHint()
 {
-	return *m_pPieceInfo;
-}
-
-const Cell &ActionBase::GetDestination()
-{
-	return m_destination;
+	return &m_hint;
 }

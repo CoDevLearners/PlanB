@@ -39,3 +39,7 @@ PieceInfo::PieceInfo() :
 PieceInfo::PieceInfo(PlayerType owner, PieceType type, PieceId id, bool isAlive, Cell cell) :
 	owner(owner), type(type), id(id), isAlive(isAlive), cell(cell)
 {}
+
+Action::Action() :
+	piece(), destination(), hasKill(false), deadPiece(), hasWon(false), player(PlayerType::None)
+{}

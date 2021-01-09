@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "BuffaloPiece.h"
 #include "BuffaloChess.h"
+#include "MoveAction.h"
 
 BuffaloPiece::BuffaloPiece(PieceInfo info) :
     PieceBase(info)
@@ -28,11 +29,8 @@ void BuffaloPiece::CalcAction(const GameContext *const pContext)
         return;
     }
 
-    ActionBase *pAction = nullptr;
-    if ( nullptr != pAction )
-    {
-        m_hints.push_back(pAction);
-    }
+    ActionBase *pAction = (ActionBase *)( new MoveAction(this, nextCell) );
+    m_hints.push_back(pAction);
     m_hasCalcHint = true;
 
     return;

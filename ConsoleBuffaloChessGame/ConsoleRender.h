@@ -37,7 +37,7 @@ public:
 
 	void PrintPiece(const PieceInfo &piece);
 	void ClearInputArea();
-	void PrintHint(const IHint &action);
+	void PrintHint(const Action &action);
 
 	void PrintVictory(const PlayerType &owner);
 };

@@ -59,7 +59,7 @@ void BuffaloChess::GenGrassPiece()
 		uint32_t pieceArrIdx = buffaloArrOffset + number;
 		// set piece
 		m_pieces[pieceArrIdx] = new BuffaloPiece(PieceInfo(PlayerType::Grass, PieceType::Buffalo, id, true, cell));
-		m_pGameContext->SetPiece(m_pieces[pieceArrIdx]);
+		m_pGameContext->SetPiece(cell, m_pieces[pieceArrIdx]);
 	}
 }
 
@@ -82,7 +82,7 @@ void BuffaloChess::GenRiverPiece()
 		uint32_t pieceArrIdx = dogArrOffset + number;
 		// set piece
 		m_pieces[pieceArrIdx] = new DogPiece(PieceInfo(PlayerType::River, PieceType::Dog, id, true, cell));
-		m_pGameContext->SetPiece(m_pieces[pieceArrIdx]);
+		m_pGameContext->SetPiece(cell, m_pieces[pieceArrIdx]);
 	}
 
 	// Chief
@@ -96,7 +96,7 @@ void BuffaloChess::GenRiverPiece()
 		uint32_t pieceArrIdx = chiefArrOffset + number;
 		// set piece
 		m_pieces[pieceArrIdx] = new ChiefPiece(PieceInfo(PlayerType::River, PieceType::Chief, id, true, cell));
-		m_pGameContext->SetPiece(m_pieces[pieceArrIdx]);
+		m_pGameContext->SetPiece(cell, m_pieces[pieceArrIdx]);
 	}
 
 }
@@ -155,32 +155,26 @@ PieceInfo BuffaloChess::GetPieceInfo(const Cell &cell)
 	return *( pPiece->GetPieceInfo() );
 }
 
-std::vector<IHint *> BuffaloChess::GetHint(const PieceInfo &pieceInfo)
+const std::vector<Action *> BuffaloChess::GetHint(const PieceInfo &pieceInfo)
 {
 	const Cell &cell = pieceInfo.cell;
 	PieceBase *pPiece = m_pGameContext->board[cell.row][cell.col];
 
 	const std::vector<ActionBase *> actions = pPiece->GetHints(m_pGameContext);
 
-	std::vector<IHint *> res;
+	std::vector<Action *> res;
 	for ( ActionBase* action : actions )
 	{
-		res.push_back(dynamic_cast<IHint *>( action ));
-
-		res.push_back( (IHint *) action );
+		Action *pHint = const_cast<Action *>( action->GetHint() );
+		res.push_back(pHint);
 	}
 
 	return res;
 }
 
-bool BuffaloChess::Update(const IHint *pHint)
+bool BuffaloChess::Update(const Action *pHint)
 {
-	dynamic_cast<ActionBase *>( (IHint *)pHint );
-
-	ActionBase *pAction = (ActionBase *)pHint;
-
-	GetPiece(pAction->GetPieceInfo())->CheckValidHint(pAction);
-
+	// TODO : update
 
 	return false;
 }
@@ -235,10 +229,7 @@ PieceBase* GameContext::GetPiece(const Cell &cell) const
 	return board[cell.row][cell.col];
 }
 
-void GameContext::SetPiece(PieceBase * const piece) const
+void GameContext::SetPiece(const Cell &cell, PieceBase *const piece) const
 {
-	const PieceInfo *info = piece->GetPieceInfo();
-	const Cell &cell = info->cell;
-
 	board[cell.row][cell.col] = piece;
 }

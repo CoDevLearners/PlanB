@@ -64,7 +64,7 @@ void ConsoleRender::ClearInputArea()
 	SetConsoleCursorPosition(m_hOut, topLeft);
 }
 
-void ConsoleRender::PrintHint(const IHint &action)
+void ConsoleRender::PrintHint(const Action &action)
 {
 	//std::cout.flush();
 	//

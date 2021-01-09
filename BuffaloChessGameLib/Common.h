@@ -69,13 +69,15 @@ struct PieceInfo {
 
 bool operator==(const PieceInfo &lhs, const PieceInfo &rhs);
 
-class IHint {
-public:
-	IHint()
-	{}
-	virtual ~IHint()
-	{}
+struct Action {
+	PieceInfo piece;
+	Cell destination;
 
-	virtual const PieceInfo& GetPieceInfo() = 0;
-	virtual const Cell& GetDestination() = 0;
+	bool hasKill;
+	PieceInfo deadPiece;
+
+	bool hasWon;
+	PlayerType player;
+
+	Action();
 };
