@@ -21,7 +21,8 @@ void ConsoleRender::LoadStyle(StyleType type)
 		SetConsoleTextAttribute(m_hOut, 9);
 		break;
 	case ConsoleRender::Grass:
-		SetConsoleTextAttribute(m_hOut, 10);
+		SetConsoleTextAttribute(m_hOut, 2);
+		break;
 	default:
 		SetConsoleTextAttribute(m_hOut, 15);
 		break;
@@ -247,14 +248,14 @@ void ConsoleRender::PrintTurnHelp(const PlayerType &owner)
 		LoadStyle(StyleType::Grass);
 		Print(0, 24, u8"Grass");
 		LoadStyle(StyleType::Default);
-		Print(6, 24, u8" 팀 차례입니다.");
+		Print(5, 24, u8" 팀 차례입니다.");
 	}
 	else if ( owner == PlayerType::River )
 	{
 		LoadStyle(StyleType::River);
 		Print(0, 24, u8"River");
 		LoadStyle(StyleType::Default);
-		Print(6, 24, u8" 팀 차례입니다.");
+		Print(5, 24, u8" 팀 차례입니다.");
 	}
 }
 
