@@ -4,7 +4,7 @@
 #include "BuffaloChess.h"
 
 PieceBase::PieceBase(PieceInfo info) :
-	m_pieceInfo(info), m_hints(0), m_hasCalcHint(false)
+	m_pieceInfo(info), m_hints(0)
 {}
 
 PieceBase::~PieceBase()
@@ -15,33 +15,15 @@ const PieceInfo *const PieceBase::GetPieceInfo()
 	return &m_pieceInfo;
 }
 
-void PieceBase::ClearHints()
-{
-	if ( m_hasCalcHint )
-	{
-		m_hints.clear();
-		m_hasCalcHint = false;
-	}
-}
-
 const std::vector<ActionBase *> PieceBase::GetHints(GameContext *const pContext)
 {
-	if ( !m_hasCalcHint )
-	{
-		CalcAction(pContext);
-		m_hasCalcHint = true;
-	}
+	CalcAction(pContext);
 
 	return m_hints;
 }
 
 bool PieceBase::CheckValidHint(const ActionBase *pHint)
 {
-	if ( !m_hasCalcHint )
-	{
-		return false;
-	}
-
 	for ( const ActionBase *hint : m_hints )
 	{
 		if ( hint == pHint )
@@ -68,7 +50,7 @@ bool PieceBase::SetDead(GameContext * const pContext)
 	const Cell &currCell = m_pieceInfo.cell;
 	pContext->SetPiece(currCell, nullptr);
 
-	return false;
+	return true;
 }
 
 bool PieceBase::Move(GameContext *pContext, const Cell &cell)

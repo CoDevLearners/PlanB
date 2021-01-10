@@ -2,7 +2,8 @@
 
 #include "PieceBase.h"
 
-class ChiefPiece : public PieceBase {
+class ChiefPiece : public PieceBase 
+{
 
 public:
 	ChiefPiece(PieceInfo info);

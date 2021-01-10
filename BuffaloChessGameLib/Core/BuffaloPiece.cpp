@@ -12,26 +12,25 @@ BuffaloPiece::~BuffaloPiece()
 
 void BuffaloPiece::CalcAction(GameContext *const pContext)
 {
-    if ( m_hasCalcHint )
+    if ( !m_pieceInfo.isAlive )
     {
         return;
     }
 
+    m_hints.clear();
+
     const Cell &currCell = m_pieceInfo.cell;
     const Cell &nextCell = currCell - Cell(1, 0);
 
-    if ( !m_pieceInfo.isAlive ||
-         ( nullptr != pContext->GetPiece(nextCell) ) )
-    {
-        m_hints.clear();
-        m_hasCalcHint = true;
+    PieceBase *pDstPiece = pContext->GetPiece(nextCell);
 
+    if ( nullptr != pDstPiece )
+    {
         return;
     }
 
     ActionBase *pAction = (ActionBase *)( new MoveAction(this, nextCell) );
     m_hints.push_back(pAction);
-    m_hasCalcHint = true;
 
     return;
 }

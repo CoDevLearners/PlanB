@@ -13,7 +13,7 @@ MoveAction::MoveAction(PieceBase *pPiece, const Cell &cell) :
 
 bool MoveAction::Operator(GameContext *pContext)
 {
-    if ( m_pPiece != pContext->GetPiece(m_dstCell) )
+    if ( nullptr != pContext->GetPiece(m_dstCell) )
     {
         return false;
     }
@@ -23,7 +23,5 @@ bool MoveAction::Operator(GameContext *pContext)
         return false;
     }
 
-    m_pPiece->Move(pContext, m_dstCell);
-
-    return true;
+    return m_pPiece->Move(pContext, m_dstCell);
 }

@@ -23,12 +23,14 @@ IBuffaloChess *IBuffaloChess::CreateGame()
 	return ( new BuffaloChess() );
 }
 
+bool operator==(const Action &lhs, const Action &rhs)
+{
+	return ( 0 == memcmp(&lhs, &rhs, sizeof(Action)) );
+}
+
 
 void BuffaloChess::GenPieces()
 {
-	m_alivePieceIndex.clear();
-	m_deadPieceIndex.clear();
-
 	for ( size_t i = 0; i < NUM_TOTAL_PIECE; ++i )
 	{
 		delete m_pieces[i];
@@ -36,11 +38,6 @@ void BuffaloChess::GenPieces()
 
 	GenGrassPiece();
 	GenRiverPiece();
-
-	for ( size_t i = 0; i < NUM_TOTAL_PIECE; ++i )
-	{
-		m_alivePieceIndex.insert(i);
-	}
 }
 
 void BuffaloChess::GenGrassPiece()
@@ -91,7 +88,7 @@ void BuffaloChess::GenRiverPiece()
 		PieceId id = 1 + NUM_BUFFALO + NUM_DOG + number;
 
 		uint32_t col = boardColOffset + halfNumDog + number;
-		Cell cell = Cell(cheifRow, boardColOffset + number);
+		Cell cell = Cell(cheifRow, col);
 
 		uint32_t pieceArrIdx = chiefArrOffset + number;
 		// set piece
@@ -150,9 +147,12 @@ PlayerType BuffaloChess::GetPlayerThisTurn()
 
 PieceInfo BuffaloChess::GetPieceInfo(const Cell &cell)
 {
-	PieceBase *pPiece = m_pGameContext->board[cell.row][cell.col];
-
-	return *( pPiece->GetPieceInfo() );
+	PieceBase *pPiece = m_pGameContext->GetPiece(cell);
+	if ( nullptr != pPiece )
+	{
+		return ( *pPiece->GetPieceInfo() );
+	}
+	return PieceInfo();
 }
 
 const std::vector<Action *> BuffaloChess::GetHint(const PieceInfo &pieceInfo)
@@ -163,7 +163,7 @@ const std::vector<Action *> BuffaloChess::GetHint(const PieceInfo &pieceInfo)
 	const std::vector<ActionBase *> actions = pPiece->GetHints(m_pGameContext);
 
 	std::vector<Action *> res;
-	for ( ActionBase* action : actions )
+	for ( ActionBase *action : actions )
 	{
 		Action *pHint = const_cast<Action *>( action->GetHint() );
 		res.push_back(pHint);
@@ -174,7 +174,34 @@ const std::vector<Action *> BuffaloChess::GetHint(const PieceInfo &pieceInfo)
 
 bool BuffaloChess::Update(const Action *pHint)
 {
-	// TODO : update
+	if ( m_pGameContext->gameState == GameState::GameOver )
+	{
+		return false;
+	}
+
+	const Cell &cell = pHint->piece.cell;
+	PieceBase *pPiece = m_pGameContext->GetPiece(cell);
+
+	std::vector<ActionBase *> actions = pPiece->GetHints(m_pGameContext);
+
+	for ( ActionBase *action : actions )
+	{
+		if ( *action->GetHint() == *pHint )
+		{
+			if ( action->Operator(m_pGameContext) )
+			{
+				++m_pGameContext->turnNumber;
+
+				if ( ( nullptr != GetBuffaloArrivintAtRiver() ) ||
+					 !ExistMovingBuffalo() )
+				{
+					m_pGameContext->gameState = GameState::GameOver;
+				}
+
+				return true;
+			}
+		}
+	}
 
 	return false;
 }
@@ -192,12 +219,34 @@ std::vector<PieceInfo> BuffaloChess::GetAllPieces()
 
 std::vector<PieceInfo> BuffaloChess::GetAlivePieces()
 {
-	return std::vector<PieceInfo>();
+	std::vector<PieceInfo> res;
+
+	for ( size_t i = 0; i < NUM_TOTAL_PIECE; ++i )
+	{
+		const PieceInfo *pInfo = m_pieces[i]->GetPieceInfo();
+		if ( pInfo->isAlive )
+		{
+			res.push_back(*pInfo);
+		}
+	}
+
+	return res;
 }
 
 std::vector<PieceInfo> BuffaloChess::GetDeadPieces()
 {
-	return std::vector<PieceInfo>();
+	std::vector<PieceInfo> res;
+
+	for ( size_t i = 0; i < NUM_TOTAL_PIECE; ++i )
+	{
+		const PieceInfo *pInfo = m_pieces[i]->GetPieceInfo();
+		if ( !pInfo->isAlive )
+		{
+			res.push_back(*pInfo);
+		}
+	}
+
+	return res;
 }
 
 PieceBase *BuffaloChess::GetBuffaloArrivintAtRiver()
@@ -207,10 +256,31 @@ PieceBase *BuffaloChess::GetBuffaloArrivintAtRiver()
 		const PieceInfo *pInfo = m_pieces[i]->GetPieceInfo();
 		if ( pInfo->isAlive && (pInfo->cell.row == RIVER_ROW))
 		{
+			m_pGameContext->gameState = GameState::GameOver;
 			return m_pieces[i];
 		}
 	}
 	return nullptr;
+}
+
+bool BuffaloChess::ExistMovingBuffalo()
+{
+	for ( size_t i = 0; i < NUM_BUFFALO; ++i )
+	{
+		const PieceInfo *pInfo = m_pieces[i]->GetPieceInfo();
+		if ( pInfo->isAlive )
+		{
+			PieceBase* pPiece = GetPiece(*pInfo);
+			if ( pPiece->GetHints(m_pGameContext).size() > 0 )
+			{
+				return true;
+			}
+		}
+	}
+
+	m_pGameContext->gameState = GameState::GameOver;
+
+	return false;
 }
 
 GameContext::GameContext(uint8_t row, uint8_t col) :
@@ -239,10 +309,30 @@ GameContext::~GameContext()
 
 PieceBase* GameContext::GetPiece(const Cell &cell) const
 {
+	if ( !InBoard(cell) )
+	{
+		return nullptr;
+	}
 	return board[cell.row][cell.col];
 }
 
 void GameContext::SetPiece(const Cell &cell, PieceBase *const piece) const
 {
+	if ( !InBoard(cell) )
+	{
+		return;
+	}
+
 	board[cell.row][cell.col] = piece;
+}
+
+bool GameContext::InBoard(const Cell &cell) const
+{
+	if ( ( 0 > cell.row ) || ( boardRow <= cell.row ) ||
+		 ( 0 > cell.col ) || ( boardCol <= cell.col ) )
+	{
+		return false;
+	}
+
+	return true;
 }

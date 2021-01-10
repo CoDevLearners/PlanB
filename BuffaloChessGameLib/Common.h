@@ -51,9 +51,11 @@ struct Cell {
 	Cell(uint32_t row, uint32_t col);
 };
 
-Cell operator+(const Cell &lhs, const Cell &rhs);
-Cell operator-(const Cell &lhs, const Cell &rhs);
-bool operator==(const Cell &lhs, const Cell &rhs);
+Cell operator+(const Cell& lhs, const Cell& rhs);
+Cell operator-(const Cell& lhs, const Cell& rhs);
+Cell operator*(const int&  lhs, const Cell& rhs);
+Cell operator*(const Cell& lhs, const int&  rhs);
+bool operator==(const Cell& lhs, const Cell& rhs);
 
 
 struct PieceInfo {
@@ -73,7 +75,7 @@ struct Action {
 	PieceInfo piece;
 	Cell destination;
 
-	bool hasKill;
+	bool hasKilled;
 	PieceInfo deadPiece;
 
 	bool hasWon;

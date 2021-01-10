@@ -9,7 +9,7 @@ KillAction::KillAction(PieceBase *pPiece, const Cell &cell, PieceBase *pDeadPiec
 {
     m_hint.piece = *( m_pPiece->GetPieceInfo() );
     m_hint.destination = m_dstCell;
-    m_hint.hasKill = true;
+    m_hint.hasKilled = true;
     m_hint.deadPiece = *( m_pDeadPiece->GetPieceInfo() );
 }
 
@@ -26,8 +26,10 @@ bool KillAction::Operator(GameContext *pContext)
         return false;
     }
 
-    pDeadPiece->SetDead(pContext);
-    m_pPiece->Move(pContext, m_dstCell);
+    if ( pDeadPiece->SetDead(pContext) && m_pPiece->Move(pContext, m_dstCell) )
+    {
+        return true;
+    }
 
-    return true;
+    return false;
 }

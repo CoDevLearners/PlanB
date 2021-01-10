@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include <Windows.h>
 #include "../BuffaloChessGameLib/Common.h"
 
@@ -15,11 +16,36 @@ typedef char xchar;
 
 class ConsoleRender {
 private:
+	enum StyleType {
+		Default = 0,
+		Buffalo,
+		Dog,
+		Chief,
+		River,
+		Grass,
+		Hint,
+	};
+
+private:
 	HANDLE m_hOut;
-	CONSOLE_SCREEN_BUFFER_INFO m_csbi;
+
+	const char *ConsoleTitle = u8"Buffalo Chess Console";
+	const short ConsoleCol = 58;
+	const short ConsoleRow = 40;
+	const short ChessAreaHeight = 22;
+
+	const char* BuffaloObj = u8"¼Ò";
+	const char* ChiefObj   = u8"ÃÑ";
+	const char* DogObj	   = u8"°³";
+	const char* RiverObj   = u8"¹°";
+	const char* HintObj	   = u8"¡Û";
+	const char* PrevPosObj = u8"¢Á";
+	const xchar BlankObj   = TEXT(' ');
+
+	void LoadStyle(StyleType type = StyleType::Default);
+	void Print(short x, short y, const char *u8str);
 
 	void Init();
-	void ChangeChar(const HANDLE &hOut, const xchar &c, const short &x, const short &y);
 
 public:
 	enum class State {
@@ -27,11 +53,10 @@ public:
 		WaitInput,
 	};
 
-
-
 	ConsoleRender();
 
 	void PrintChessBoard();
+
 	void PrintTurnHelp(const PlayerType &owner);
 	void PrintStateHelp(const State &state);
 

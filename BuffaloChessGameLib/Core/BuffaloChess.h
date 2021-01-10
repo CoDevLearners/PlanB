@@ -19,6 +19,8 @@ struct GameContext {
 
 	PieceBase* GetPiece(const Cell &cell) const;
 	void SetPiece(const Cell &cell, PieceBase *const piece) const;
+
+	bool InBoard(const Cell &cell) const;
 };
 
 class BuffaloChess : public IBuffaloChess {
@@ -26,8 +28,6 @@ private:
 	GameContext *m_pGameContext;
 	
 	std::vector<PieceBase *> m_pieces;
-	std::set<size_t> m_alivePieceIndex;
-	std::set<size_t> m_deadPieceIndex;
 
 	void GenPieces();
 	void GenGrassPiece();
@@ -60,4 +60,6 @@ public:
 	virtual std::vector<PieceInfo> GetDeadPieces() override;
 
 	PieceBase *GetBuffaloArrivintAtRiver();
+
+	bool ExistMovingBuffalo();
 };

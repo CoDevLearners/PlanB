@@ -12,17 +12,27 @@ Cell::Cell(uint32_t row, uint32_t col) :
 	col(col)
 {}
 
-Cell operator+(const Cell &lhs, const Cell &rhs)
+Cell operator+(const Cell& lhs, const Cell& rhs)
 {
 	return Cell(lhs.row + rhs.row, lhs.col + rhs.col);
 }
 
-Cell operator-(const Cell &lhs, const Cell &rhs)
+Cell operator-(const Cell& lhs, const Cell& rhs)
 {
 	return Cell(lhs.row - rhs.row, lhs.col - rhs.col);
 }
 
-bool operator==(const Cell &lhs, const Cell &rhs)
+Cell operator*(const int& lhs, const Cell& rhs)
+{
+	return Cell(lhs * rhs.row, lhs * rhs.col);
+}
+
+Cell operator*(const Cell &lhs, const int &rhs)
+{
+	return Cell(rhs * lhs.row, rhs * lhs.col);
+}
+
+bool operator==(const Cell& lhs, const Cell& rhs)
 {
 	return ( ( lhs.row == rhs.row ) && ( lhs.col == rhs.col ) );
 }
@@ -41,5 +51,5 @@ PieceInfo::PieceInfo(PlayerType owner, PieceType type, PieceId id, bool isAlive,
 {}
 
 Action::Action() :
-	piece(), destination(), hasKill(false), deadPiece(), hasWon(false), player(PlayerType::None)
+	piece(), destination(), hasKilled(false), deadPiece(), hasWon(false), player(PlayerType::None)
 {}

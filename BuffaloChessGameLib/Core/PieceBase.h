@@ -10,7 +10,6 @@ struct GameContext;
 class PieceBase {
 protected:
 	PieceInfo m_pieceInfo;
-	bool m_hasCalcHint;
 	std::vector<ActionBase *> m_hints;
 
 public:
@@ -18,8 +17,6 @@ public:
 	virtual ~PieceBase();
 
 	const PieceInfo *const GetPieceInfo();
-
-	virtual void ClearHints();
 
 	virtual const std::vector<ActionBase *> GetHints(GameContext *const pContext);
 
