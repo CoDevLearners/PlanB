@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{4759b273-a91d-405f-969a-417d718efd9a}</ProjectGuid>
-    <RootNamespace>BuffaloChessGameLib</RootNamespace>
+    <ProjectGuid>{bb656b81-b515-4dee-a36d-8a5bf3da103c}</ProjectGuid>
+    <RootNamespace>OpenGLWrapper</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -72,9 +72,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>./include;..\third_party\glm\include;..\third_party\nanogui\ext\glad\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>./include;..\third_party\glm\include;..\third_party\nanogui\ext\glad\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -88,20 +90,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
       </SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
-    <PostBuildEvent />
-    <PostBuildEvent>
-      <Command>mkdir "$(OutDir)include"
-xcopy /Y  "$(ProjectDir)*.h" "$(OutDir)include"</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -111,9 +107,8 @@ xcopy /Y  "$(ProjectDir)*.h" "$(OutDir)include"</Command>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -122,11 +117,6 @@ xcopy /Y  "$(ProjectDir)*.h" "$(OutDir)include"</Command>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
-    <PostBuildEvent />
-    <PostBuildEvent>
-      <Command>mkdir "$(OutDir)include"
-xcopy /Y  "$(ProjectDir)*.h" "$(OutDir)include"</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -136,20 +126,12 @@ xcopy /Y  "$(ProjectDir)*.h" "$(OutDir)include"</Command>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
       </SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
-    <PostBuildEvent />
-    <PostBuildEvent>
-      <Command>mkdir "$(OutDir)include"
-xcopy /Y  "$(ProjectDir)BuffaloChessGameLib.h" "$(OutDir)include"
-xcopy /Y  "$(ProjectDir)Common.h" "$(OutDir)include"
-xcopy /Y  "$(ProjectDir)IBuffaloChess.h" "$(OutDir)include"</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -161,7 +143,6 @@ xcopy /Y  "$(ProjectDir)IBuffaloChess.h" "$(OutDir)include"</Command>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)Core;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -170,45 +151,28 @@ xcopy /Y  "$(ProjectDir)IBuffaloChess.h" "$(OutDir)include"</Command>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
-    <PostBuildEvent />
-    <PostBuildEvent>
-      <Command>mkdir "$(OutDir)include"
-xcopy /Y  "$(ProjectDir)BuffaloChessGameLib.h" "$(OutDir)include"
-xcopy /Y  "$(ProjectDir)Common.h" "$(OutDir)include"
-xcopy /Y  "$(ProjectDir)IBuffaloChess.h" "$(OutDir)include"</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="BuffaloChessGameLib.h" />
-    <ClInclude Include="Common.h" />
-    <ClInclude Include="Core\ActionBase.h" />
-    <ClInclude Include="Core\BuffaloChess.h" />
-    <ClInclude Include="Core\BuffaloPiece.h" />
-    <ClInclude Include="Core\ChiefPiece.h" />
-    <ClInclude Include="Core\DogPiece.h" />
-    <ClInclude Include="Core\KillAction.h" />
-    <ClInclude Include="Core\MoveAction.h" />
-    <ClInclude Include="Core\PieceBase.h" />
-    <ClInclude Include="IBuffaloChess.h" />
-    <ClInclude Include="pch.h" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Cube.cpp" />
+    <ClCompile Include="FrameBuffer.cpp" />
+    <ClCompile Include="Plane.cpp" />
+    <ClCompile Include="Sampler.cpp" />
+    <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="VertexArray.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="BuffaloChessGameLib.cpp" />
-    <ClCompile Include="Common.cpp" />
-    <ClCompile Include="Core\ActionBase.cpp" />
-    <ClCompile Include="Core\BuffaloChess.cpp" />
-    <ClCompile Include="Core\BuffaloPiece.cpp" />
-    <ClCompile Include="Core\ChiefPiece.cpp" />
-    <ClCompile Include="Core\DogPiece.cpp" />
-    <ClCompile Include="Core\KillAction.cpp" />
-    <ClCompile Include="Core\MoveAction.cpp" />
-    <ClCompile Include="Core\PieceBase.cpp" />
-    <ClCompile Include="pch.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-    </ClCompile>
+    <ClInclude Include="include\Camera.h" />
+    <ClInclude Include="include\Cube.h" />
+    <ClInclude Include="include\FrameBuffer.h" />
+    <ClInclude Include="include\mygl.h" />
+    <ClInclude Include="include\OpenGLWrapper.h" />
+    <ClInclude Include="include\Plane.h" />
+    <ClInclude Include="include\Sampler.h" />
+    <ClInclude Include="include\Shader.h" />
+    <ClInclude Include="include\Texture.h" />
+    <ClInclude Include="include\VertexArray.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
