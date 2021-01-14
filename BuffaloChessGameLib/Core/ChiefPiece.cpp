@@ -1,4 +1,4 @@
-#include "pch.h"
+#include "Common.h"
 #include "ChiefPiece.h"
 #include "BuffaloChess.h"
 #include "MoveAction.h"

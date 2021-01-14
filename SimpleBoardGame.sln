@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30523.141
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnitTest1", "UnitTest1\UnitTest1.vcxproj", "{9929A32B-3C4D-4A8B-93EF-E561379332C7}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BuffaloChessGameLib", "BuffaloChessGameLib\BuffaloChessGameLib.vcxproj", "{4759B273-A91D-405F-969A-417D718EFD9A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ConsoleBuffaloChessGame", "ConsoleBuffaloChessGame\ConsoleBuffaloChessGame.vcxproj", "{A2C7AE74-CAA3-4178-8DAE-5CE02B91831B}"
@@ -24,14 +22,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9929A32B-3C4D-4A8B-93EF-E561379332C7}.Debug|x64.ActiveCfg = Debug|x64
-		{9929A32B-3C4D-4A8B-93EF-E561379332C7}.Debug|x64.Build.0 = Debug|x64
-		{9929A32B-3C4D-4A8B-93EF-E561379332C7}.Debug|x86.ActiveCfg = Debug|Win32
-		{9929A32B-3C4D-4A8B-93EF-E561379332C7}.Debug|x86.Build.0 = Debug|Win32
-		{9929A32B-3C4D-4A8B-93EF-E561379332C7}.Release|x64.ActiveCfg = Release|x64
-		{9929A32B-3C4D-4A8B-93EF-E561379332C7}.Release|x64.Build.0 = Release|x64
-		{9929A32B-3C4D-4A8B-93EF-E561379332C7}.Release|x86.ActiveCfg = Release|Win32
-		{9929A32B-3C4D-4A8B-93EF-E561379332C7}.Release|x86.Build.0 = Release|Win32
 		{4759B273-A91D-405F-969A-417D718EFD9A}.Debug|x64.ActiveCfg = Debug|x64
 		{4759B273-A91D-405F-969A-417D718EFD9A}.Debug|x64.Build.0 = Debug|x64
 		{4759B273-A91D-405F-969A-417D718EFD9A}.Debug|x86.ActiveCfg = Debug|Win32

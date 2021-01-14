@@ -1,4 +1,4 @@
-#include "pch.h"
+#include "Common.h"
 #include "MoveAction.h"
 
 #include "PieceBase.h"

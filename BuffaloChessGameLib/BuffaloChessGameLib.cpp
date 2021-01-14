@@ -1,2 +1,1 @@
-﻿#include "pch.h"
-#include "BuffaloChessGameLib.h"
+﻿#include "BuffaloChessGameLib.h"

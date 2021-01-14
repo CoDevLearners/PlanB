@@ -1,7 +1,8 @@
 ﻿#pragma once
 
-#include <ostream>
+#include <stdio.h>
 #include <cstdint>
+#include <vector>
 
 /**
 * 7행, 11열

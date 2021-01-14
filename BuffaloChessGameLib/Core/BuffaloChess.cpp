@@ -1,5 +1,3 @@
-#include "pch.h"
-
 #include "Common.h"
 
 #include "BuffaloChess.h"
