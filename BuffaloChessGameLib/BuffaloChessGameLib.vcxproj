@@ -149,9 +149,7 @@ xcopy /Y  "$(ProjectDir)*.h" "$(OutDir)include"</Command>
     <PostBuildEvent />
     <PostBuildEvent>
       <Command>mkdir "$(OutDir)include"
-xcopy /Y  "$(ProjectDir)BuffaloChessGameLib.h" "$(OutDir)include"
-xcopy /Y  "$(ProjectDir)Common.h" "$(OutDir)include"
-xcopy /Y  "$(ProjectDir)IBuffaloChess.h" "$(OutDir)include"</Command>
+xcopy /Y  "$(ProjectDir)*.h" "$(OutDir)include"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -177,9 +175,7 @@ xcopy /Y  "$(ProjectDir)IBuffaloChess.h" "$(OutDir)include"</Command>
     <PostBuildEvent />
     <PostBuildEvent>
       <Command>mkdir "$(OutDir)include"
-xcopy /Y  "$(ProjectDir)BuffaloChessGameLib.h" "$(OutDir)include"
-xcopy /Y  "$(ProjectDir)Common.h" "$(OutDir)include"
-xcopy /Y  "$(ProjectDir)IBuffaloChess.h" "$(OutDir)include"</Command>
+xcopy /Y  "$(ProjectDir)*.h" "$(OutDir)include"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
